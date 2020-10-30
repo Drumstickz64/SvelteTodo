@@ -1,5 +1,5 @@
 <footer>
-	<h3>Copyright SvelteTodo©</h3>
+	<h4>Copyright 2020, All Rights Reserved©</h4>
 	<div>
 		Icons made by
 		<a href="https://www.flaticon.com/authors/prosymbols" title="Prosymbols">Prosymbols</a>,
@@ -17,7 +17,7 @@
 		margin-bottom: 1.5em;
 	}
 
-	h3, div {
+	h4, div {
 		margin-bottom: 1em;
 	}
 </style>
