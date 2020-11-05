@@ -1,20 +1,15 @@
 <script>
-	import {
-		fade
-	} from "svelte/transition";
-	import {
-		todos
-	} from "../stores.js";
+	import { fade } from "svelte/transition";
+	import { todos } from "../stores.js";
 
 	export let _id, text, done, createdAt, updatedAt;
+	
 	let inEditMode = false;
 	let editText = text;
 
 	async function toggleDone() {
 		// prevents accidental toggle when in edit mode
-		if (inEditMode) {
-			return
-		}
+		if (inEditMode) { return }
 
 		const newTodo = {
 			_id,

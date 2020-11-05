@@ -5,30 +5,25 @@
 	import { todos } from "./stores.js";
 	
 	// fetch todos
-	let loading = true;
-	let ok = true;
-	fetch("/api/todo")
-	    .then(res => {
-			if (!res.ok) { throw new Error(); }
-			
-			return res.json();
-		})
-		.then(json => {
-			// places unfinished todos over finished ones
-			json = json.sort((a, b) => a.done - b.done)
-			todos.set(json);
-			loading = false;
-		})
-		.catch(() => ok = false);
+	async function fetchTodos() {
+		const res = await fetch("/api/todo");
+		if (!res.ok) {
+			throw Error;
+		}
+		
+		const data = await res.json()
+		const sortedData = data.sort((a, b) => a.done - b.done)
+		todos.set(sortedData)
+	}
 	
 </script>
 
 <Header></Header>
 
 <main>
-	{#if loading}
+	{#await fetchTodos()}
 		<p>Loading...</p>
-	{:else if ok}
+	{:then}
 	
 		{#each $todos as todo (todo._id)}
 			<Todo {...todo}></Todo>
@@ -36,9 +31,9 @@
 			<p>There are no todos, try adding a new one</p>
 		{/each}
 	
-	{:else}
-		<p>Couldn't connect to server. Please retry.</p>
-	{/if}
+	{:catch}
+		<p class="error">OOPS! couldn't connect to the server</p>
+	{/await}
 </main>
 
 <Footer></Footer>
@@ -48,6 +43,11 @@
 		padding: 1.5em;
 		max-width: 600px;
 		margin: 0 auto;
+	}
+	
+	.error {
+		color: #ff0d0d;
+		text-align: center;
 	}
 	
 	main :global(.todo) {

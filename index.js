@@ -31,9 +31,7 @@ Todo.loadDatabase(err => {
 // routes
 app.get("/api/todo", (req, res) => {
 	
-	Todo.find({})
-	.sort({ createdAt: -1 })
-	.exec((err, todos) => {
+	Todo.find({}, (err, todos) => {
 		if (err) { res.status(500).send() }
 		
 		res.json(todos);
@@ -57,9 +55,7 @@ app.post("/api/todo", (req, res) => {
 app.put("/api/todo/:id", (req, res) => {
 	
 	Todo.update({ _id: req.params.id }, req.body, err => {
-		
 		if (err) { res.status(500).send() }
-		
 		res.status(200).send();
 		
 	});
