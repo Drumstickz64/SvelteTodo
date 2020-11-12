@@ -1,6 +1,7 @@
 <script>
 	import Header from "./components/Header.svelte";
 	import Footer from "./components/Footer.svelte";
+	import Bouncer from "./shared/Bouncer.svelte";
 	import Todo from "./components/Todo.svelte";
 	import { todos } from "./stores.js";
 	
@@ -22,7 +23,7 @@
 
 <main>
 	{#await fetchTodos()}
-		<p>Loading...</p>
+		<Bouncer></Bouncer>
 	{:then}
 	
 		{#each $todos as todo (todo._id)}
